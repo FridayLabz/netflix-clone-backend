@@ -24,7 +24,7 @@ router.post('/create', (req, res) => {
 
         profile.save(function (err) {
             if (err) {
-                return next(err);
+                throw err;
             }
             res.send('Profile Created successfully');
         })

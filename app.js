@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var cors = require('cors');
 
 var app = express();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 // var dev_db_url = 'mongodb://someuser:abcd1234@ds123619.mlab.com:23619/productstutorial';
 var dev_db_url = 'mongodb://abdelrhmanakram:abdelrhmanakram1@ds125211.mlab.com:25211/netflix';
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
