@@ -28,6 +28,19 @@ router.post('/create', (req, res) => {
             }
             res.send('Profile Created successfully');
         })
-    };
+});
+
+// Require the controllers WHICH WE DID NOT CREATE YET!!
+
+
+// a simple test url to check that all of our files are communicating correctly.
+router.put('/update/:id',(req, res) => {
+    Profile.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, profile) {
+        if (err) return next(err);
+        var jsonData = {};
+        jsonData["msg"]="Profile Updated Successfully";
+        res.send(jsonData);
+    });
+});
 
 module.exports = router;

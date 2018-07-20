@@ -7,6 +7,5 @@ var ProfileSchema = new Schema({
     urlPhoto: {type: String, required: true},
 });
 
-
 // Export the model
 module.exports = mongoose.model('Profile', ProfileSchema);
