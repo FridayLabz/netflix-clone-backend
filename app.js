@@ -22,12 +22,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-// var dev_db_url = 'mongodb://someuser:abcd1234@ds123619.mlab.com:23619/productstutorial';
-var dev_db_url = 'mongodb://abdelrhmanakram:abdelrhmanakram1@ds125211.mlab.com:25211/netflix';
+
+var dev_db_url = 'mongodb://localhost/netflix-clone';
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
+
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
+
 var db = mongoose.connection;
+
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use('/', indexRouter);
