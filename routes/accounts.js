@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const Account = require('../models/account.model.js');
+const ObjectId = require('mongodb').ObjectID;
+
 // POST request to Register the user
 router.post('/', (req, res) => {
   const { email, password } = req.body;
@@ -36,5 +38,17 @@ router.post('/', (req, res) => {
     });
   });
 });
+
+router.get('/:id', (req,res) => {
+  Account.findById({_id:ObjectId(req.params.id)}, function (err, Profile) {
+      if (err) {
+          throw(err);
+      }
+      console.log(Profile);
+      res.send(Profile);
+  });
+});
+
+
 
 module.exports = router;
