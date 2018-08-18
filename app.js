@@ -24,7 +24,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-// var dev_db_url = 'mongodb://someuser:abcd1234@ds123619.mlab.com:23619/productstutorial';
 var dev_db_url = 'mongodb://localhost/netflix-clone';
 var mongoDB = process.env.MONGODB_URI || dev_db_url;
 
