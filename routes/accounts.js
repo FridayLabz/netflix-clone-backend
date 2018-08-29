@@ -45,6 +45,14 @@ router.post('/', (req, res) => {
     });
   });
 });
-
+router.get('/:id', (req,res) => {
+    Account.findById({_id:ObjectId(req.params.id)}, function (err, Profile) {
+        if (err) {
+            throw(err);
+        }
+        console.log(Profile);
+        res.send(Profile);
+    });
+});
 
 module.exports = router;
