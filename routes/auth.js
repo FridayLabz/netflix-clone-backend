@@ -5,8 +5,9 @@ const Account = require('../models/account.model.js');
 const ObjectId = require('mongodb').ObjectID;
 const config=require('../config.js');
 var jwt = require('jsonwebtoken');
+const accountsRouter = require('./accounts');
 
-router.post('/',(req , res)=>{
+router.post('/login',(req , res)=>{
     Account.findOne({
         email:req.body.email
     },(err,account)=>{
@@ -24,7 +25,7 @@ router.post('/',(req , res)=>{
 
                 };
                 var token = jwt.sign(payload,config.HASH_SECRET, {
-                    expiresInMinutes: 1440
+                //    expiresInMinutes: 1440
                 });
 
                 res.json({
@@ -32,8 +33,50 @@ router.post('/',(req , res)=>{
                     message: 'Enjoy your token!',
                     token: token
                 });
+
             }
         }
+    });
+});
+
+
+// POST request to Register the user
+router.post('/register', (req, res) => {
+    const { email, password } = req.body;
+    console.log(email, password);
+    if (!email || !password) {
+        res.status(400).send('Error creating account');
+        return;
+    }
+
+    console.log(req.body);
+    Account.findOne({ email }, (err, account) => {
+        // Error connecting to the DB
+        if (err) {
+            console.log('Error in finding account ' + err);
+            res.status(400).send('Error creating accout');
+            return;
+        }
+
+        // User is already in the DB
+        if (account) {
+            res.status(400).send('Error creating account');
+            return;
+        }
+        // Hashing password
+        const hashPassword = bcrypt.hashSync(password, 0);
+
+        // Creating and saving the new user
+        const newAccount = new Account({ email: email, password: hashPassword });
+        newAccount.save(err => {
+            if (err) {
+                console.log('Error saving new account ' + err);
+                res.status(201).send('Error creating account');
+                return;
+            }
+
+            res.status(201).send(newAccount);
+        });
     });
 });
 

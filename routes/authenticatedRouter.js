@@ -33,6 +33,5 @@ router.use((req,res,next)=>{
 
 router.use('/', indexRouter);
 router.use('/users', usersRouter);
-router.use('/accounts', accountsRouter);
 
 module.exports = router;

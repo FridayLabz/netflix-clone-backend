@@ -7,7 +7,7 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 
 
-var auth = require('./routes/auth');
+var accounts = require('./routes/auth');
 var authenticatedRouter = require('./routes/authenticatedRouter');
 
 var cors = require('cors');
@@ -36,7 +36,8 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use('/api',authenticatedRouter);
-app.use('/auth',auth);
+app.use('/accounts',accounts);
+
 
 
 
