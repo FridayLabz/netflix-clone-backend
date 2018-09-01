@@ -5,7 +5,6 @@ const Account = require('../models/account.model.js');
 const ObjectId = require('mongodb').ObjectID;
 const config=require('../config.js');
 var jwt = require('jsonwebtoken');
-const accountsRouter = require('./accounts');
 
 router.post('/login',(req , res)=>{
     Account.findOne({

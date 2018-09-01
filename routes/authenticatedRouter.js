@@ -7,13 +7,12 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 var indexRouter = require('./index');
 var usersRouter = require('./users');
-const accountsRouter = require('./accounts');
+var movieRouter = require('./movies');
 
 router.use((req,res,next)=>{
-   var token = req.body.token || req.query.token || req.headers['x-access-token'];
+   var token = req.body.token || req.query.token || req.headers.authorization;
 
    if(token) {
-
        jwt.verify(token , config.HASH_SECRET , (err , decoded) => {
            if (err) {
                return res.json({success: false , message: 'Failed to authenticate token.'});
@@ -33,5 +32,6 @@ router.use((req,res,next)=>{
 
 router.use('/', indexRouter);
 router.use('/users', usersRouter);
+router.use('/movie', movieRouter);
 
 module.exports = router;

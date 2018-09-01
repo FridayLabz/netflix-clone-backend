@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var movieSchema = new Schema({
-    name: {type: String, required: true, max: 100},
+    name: {type: String, required: true,min: 1, max: 100,trim: true},
     categories: [String],
     rating: {
         likes: {type: Number,default:0},
